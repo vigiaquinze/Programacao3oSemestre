@@ -28,15 +28,33 @@ class Calculadora extends StatefulWidget {
 class _CalculadoraState extends State<Calculadora> {
   TextEditingController _controllerNumero1 = TextEditingController();
   String _resultado = '';
-  int numeroSorteado = Random(99) as int;
+  int numeroSorteado = Random().nextInt(99)+1;
+  bool acertou = false;
+  int cont = 0;
 
   void _adivinhar(){
     int numero = int.tryParse(_controllerNumero1.text) as int;
 
     setState(() {
-      if(numero ){
-
+      cont++;
+      if(numero==numeroSorteado){
+        _resultado = 'Você acertou em $cont tentativas!';
+        acertou=true;
       }
+      else if(numero>numeroSorteado){
+        _resultado = 'Você errou! Tente um número menor.';
+      }
+      else{
+        _resultado = 'Você errou! Tente um número maior.';
+      }
+    });
+  }
+
+  void _reiniciar(){
+    setState(() {
+      acertou = false;
+      _resultado = '';
+      _controllerNumero1.text = '';
     });
   }
 
@@ -56,12 +74,20 @@ class _CalculadoraState extends State<Calculadora> {
             TextField(
               controller: _controllerNumero1,
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(labelText: 'Digite um Nº'),
+              decoration: InputDecoration(labelText: 'Digite um número:'),
             ),
             SizedBox(height: 10.0),
+            if(!acertou)
             ElevatedButton(
               onPressed: () => _adivinhar(),
               child: Text('Adivinhar'),
+            ),
+            Visibility(
+              visible: acertou,
+              child: ElevatedButton(
+              onPressed: () => _reiniciar(),
+              child: Text('Reiniciar'),
+            ),
             ),
             SizedBox(height: 16.0),
             Text(_resultado,
