@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MeuApp());
+  runApp(MyApp());
 }
 
-class MeuApp extends StatelessWidget {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -19,7 +19,7 @@ class TelaOlaMundo extends StatefulWidget {
 }
 
 class _TelaOlaMundoState extends State<TelaOlaMundo> {
-  TextEditingController _controllerNome = TextEditingController();
+  final TextEditingController _controllerNome = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
