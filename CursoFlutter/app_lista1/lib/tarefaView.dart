@@ -6,7 +6,6 @@ class ListaTarefasScreen extends StatelessWidget {
   // Controlador para o campo de texto de nova tarefa
   final TextEditingController _controller = TextEditingController();
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,13 +46,18 @@ class ListaTarefasScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return ListTile(
                       // Exibição do texto da tarefa
-                      title: Text(model.tarefas[index].descricao),
+                      title: Text(model.tarefas[index].descricao.trim()),
                       // Checkbox para marcar a tarefa como concluída
                       trailing: Checkbox(
                         value: model.tarefas[index].concluida,
                         onChanged: (value) {
                           // Chamando o método marcarComoConcluida do Provider para atualizar o estado
-                          model.marcarComoConcluida(index);
+                          if (model.tarefas[index].concluida == false) {
+                            model.marcarComoConcluida(index);
+                          } else {
+                            model.desmarcarComoConcluida(index);
+                          }
+                          ;
                         },
                       ),
                       // Exclui a tarefa ao manter pressionado
