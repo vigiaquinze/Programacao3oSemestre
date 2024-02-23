@@ -8,9 +8,7 @@ class ListaTarefasController extends ChangeNotifier {
 
   //métodos CRUD
   void adicionarTarefa(String descricao) {
-    if (descricao == '') {
-      notifyListeners();
-    } else {
+    if (descricao.isNotEmpty) {
       tarefas.add(Tarefa(descricao, false));
       notifyListeners();
     }

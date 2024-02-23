@@ -51,9 +51,11 @@ class ListaTarefasScreen extends StatelessWidget {
                       trailing: Checkbox(
                         value: model.tarefas[index].concluida,
                         onChanged: (value) {
+                          // Usando if else para saber se a tarefa está concluída ou não
                           // Chamando o método marcarComoConcluida do Provider para atualizar o estado
                           if (model.tarefas[index].concluida == false) {
                             model.marcarComoConcluida(index);
+                            // Chamando o método desmarcarComoConcluida para atualizar o estado
                           } else {
                             model.desmarcarComoConcluida(index);
                           }
