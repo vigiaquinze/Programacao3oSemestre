@@ -61,6 +61,34 @@ class MyApp extends StatelessWidget {
                     subtitle: Text(
                         '1 de janeiro de 2023 –, 1 de janeiro de 2003 – 1 de janeiro de 2011'),
                   ),
+                  ListTile(
+                    title: Text(
+                      'Vice-presidente',
+                      style: TextStyle(fontWeight: FontWeight.w900),
+                    ),
+                    subtitle: Text('Geraldo Alckmin'),
+                  ),
+                  ListTile(
+                    title: Text(
+                      'Local de Nascimento',
+                      style: TextStyle(fontWeight: FontWeight.w900),
+                    ),
+                    subtitle: Text('Garanhuns, Pernambuco, Brasil'),
+                  ),
+                  ListTile(
+                    title: Text(
+                      'Profissão',
+                      style: TextStyle(fontWeight: FontWeight.w900),
+                    ),
+                    subtitle: Text('Metalúrgico'),
+                  ),
+                  ListTile(
+                    title: Text(
+                      'Número de candidaturas',
+                      style: TextStyle(fontWeight: FontWeight.w900),
+                    ),
+                    subtitle: Text('6'),
+                  ),
                 ],
               ),
             ),
