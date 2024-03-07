@@ -20,10 +20,10 @@ public class IndexController {
     return mv;
     }
     @RequestMapping(value = "/", method=RequestMethod.POST)
-    public ModelAndView enviarEmailBanco(@RequestParam("email") String email) {
+    public ModelAndView enviarEmailBanco(String nome, String email, String senha) {
         ModelAndView mv = new ModelAndView("index");
 
-        new IndexDAO().cadastrar(email);
+        new IndexDAO().cadastrar(nome, email, senha);
         return mv;
     }
     
