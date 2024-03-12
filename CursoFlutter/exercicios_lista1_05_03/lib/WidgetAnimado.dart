@@ -16,18 +16,18 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   // Define as propriedades padrão do objeto
-  double _width = 50;
-  double _height = 50;
-  Color _color = Colors.green;
+  double _largura = 50;
+  double _altura = 50;
+  Color _cor = Color.fromARGB(255, 255, 0, 98);
   BorderRadiusGeometry _borderRadius = BorderRadius.circular(8);
 
   Widget build(BuildContext context) {
     AnimatedContainer(
       // Usa as propriedades armazenadas no estado da classe
-      width: _width,
-      height: _height,
+      width: _largura,
+      height: _altura,
       decoration: BoxDecoration(
-        color: _color,
+        color: _cor,
         borderRadius: _borderRadius,
       ),
       // Definindo o quanto a animação irá durar.
@@ -44,10 +44,10 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Center(
           child: AnimatedContainer(
-            width: _width,
-            height: _height,
+            width: _largura,
+            height: _altura,
             decoration: BoxDecoration(
-              color: _color,
+              color: _cor,
               borderRadius: _borderRadius,
             ),
             duration: const Duration(seconds: 1),
@@ -63,11 +63,11 @@ class _MyAppState extends State<MyApp> {
               final random = Random();
 
               // Gera largura e altura aleatoriamente.
-              _width = random.nextInt(300).toDouble();
-              _height = random.nextInt(300).toDouble();
+              _largura = random.nextInt(300).toDouble();
+              _altura = random.nextInt(300).toDouble();
 
               // Gera uma cor aleatória usando cada cor do espectro RGB em valores aleatórios.
-              _color = Color.fromRGBO(
+              _cor = Color.fromRGBO(
                 random.nextInt(256),
                 random.nextInt(256),
                 random.nextInt(256),
