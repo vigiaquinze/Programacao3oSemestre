@@ -25,8 +25,8 @@ class TabBarExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      initialIndex: 1,
-      length: 3,
+      initialIndex: 0,
+      length: 4,
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Exemplo de TabBar'),
@@ -40,6 +40,9 @@ class TabBarExample extends StatelessWidget {
               ),
               Tab(
                 icon: Icon(Icons.airplane_ticket_outlined),
+              ),
+              Tab(
+                icon: Icon(Icons.remove_circle_outline_sharp),
               ),
             ],
           ),
