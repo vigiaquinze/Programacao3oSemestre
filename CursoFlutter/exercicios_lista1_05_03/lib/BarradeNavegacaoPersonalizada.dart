@@ -27,6 +27,26 @@ class MyApp extends StatelessWidget {
           appBar: AppBar(
 // Título da barra superior
             title: Text('Barra de Navegação Personalizada'),
+            actions: [
+              IconButton(
+                icon: Icon(
+                  Icons.account_balance_wallet_sharp,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          content: Text(
+                            "Tudo certo",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        );
+                      });
+                },
+              )
+            ],
             backgroundColor: Color.fromARGB(255, 179, 0, 255),
           ),
           body: Column(
