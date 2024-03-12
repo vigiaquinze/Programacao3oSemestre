@@ -58,6 +58,9 @@ class TabBarExample extends StatelessWidget {
             Center(
               child: Text("Dados de viagens"),
             ),
+            Center(
+              child: Text("Remover dados"),
+            ),
           ],
         ),
       ),
