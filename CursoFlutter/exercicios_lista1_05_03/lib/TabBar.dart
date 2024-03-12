@@ -33,13 +33,13 @@ class TabBarExample extends StatelessWidget {
           bottom: const TabBar(
             tabs: <Widget>[
               Tab(
-                icon: Icon(Icons.cloud_outlined),
+                icon: Icon(Icons.account_circle_outlined),
               ),
               Tab(
-                icon: Icon(Icons.beach_access_sharp),
+                icon: Icon(Icons.account_balance_wallet_outlined),
               ),
               Tab(
-                icon: Icon(Icons.brightness_5_sharp),
+                icon: Icon(Icons.airplane_ticket_outlined),
               ),
             ],
           ),
@@ -47,13 +47,13 @@ class TabBarExample extends StatelessWidget {
         body: const TabBarView(
           children: <Widget>[
             Center(
-              child: Text("Aqui está nublado."),
+              child: Text("Dados do meu perfil"),
             ),
             Center(
-              child: Text("Aqui está chuvoso."),
+              child: Text("Dados da carteira"),
             ),
             Center(
-              child: Text("Aqui está ensolarado."),
+              child: Text("Dados de viagens"),
             ),
           ],
         ),
