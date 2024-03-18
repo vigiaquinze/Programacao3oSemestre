@@ -1,6 +1,6 @@
 {
-    "name": "barra_progresso",
-    "short_name": "barra_progresso",
+    "name": "barra_navegacao",
+    "short_name": "barra_navegacao",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

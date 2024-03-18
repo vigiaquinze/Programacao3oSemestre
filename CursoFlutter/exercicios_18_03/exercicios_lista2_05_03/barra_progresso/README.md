@@ -1,4 +1,4 @@
-# barra_progresso
+# barra_navegacao
 
 A new Flutter project.
 
