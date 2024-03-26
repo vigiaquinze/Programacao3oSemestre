@@ -1,5 +1,9 @@
+body {
+    font-family: "Bricolage Grotesque", sans-serif;
+}
+
 header {
-    background-color: #333;
+    background-color: #0abb78;
     color: #fff;
     padding: 10px 0;
     text-align: center;
@@ -10,6 +14,7 @@ nav {
     display: flex;
     justify-content: center;
     gap: 20px;
+    background-color: #0abb78;
 }
 
 
@@ -23,5 +28,27 @@ nav a {
 
 
 nav a:hover {
-    background-color: #555;
+    background-color: #0b9963;
+}
+
+
+.nav {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    background-color: #0abb78;
+}
+
+
+.nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+
+.nav a:hover {
+    background-color: #0b9963;
 }
