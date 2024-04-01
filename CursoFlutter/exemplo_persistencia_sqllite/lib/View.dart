@@ -38,7 +38,8 @@ class HomePage extends StatelessWidget {  final dbHelper = DatabaseHelper();
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Implement floating action button functionality
+          // Implementando a funcionalidade do botão
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Contato adicionado!')));
         },
         child: Icon(Icons.add),
       ),
