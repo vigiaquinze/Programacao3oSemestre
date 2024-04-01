@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 
 class ContactModel{
-  int id;
+  int? id;
   String name;
   String email;
   String phone;
   String addressLine1;
 
   ContactModel({
-    required this.id,
     required this.name,
     required this.email,
     required this.phone,
@@ -29,7 +28,6 @@ class ContactModel{
   // Método de fábrica para criar um objeto ContactModel a partir de um mapa (para ler do banco de dados)
   factory ContactModel.fromMap(Map<String, dynamic> map) {
     return ContactModel(
-      id: map['id'],
       name: map['name'],
       email: map['email'],
       phone: map['phone'],
