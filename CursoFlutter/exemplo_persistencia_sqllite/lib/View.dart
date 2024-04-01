@@ -2,7 +2,13 @@ import 'package:exemplo_persistencia_sqllite/DataBaseController.dart';
 import 'package:exemplo_persistencia_sqllite/Model.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {  final dbHelper = DatabaseHelper();
+class HomePage extends StatefulWidget {
+   @override
+  State<StatefulWidget> createState() => _HomePageState();
+  }
+
+class _HomePageState extends State<HomePage>{
+  final dbHelper = DatabaseHelper();
 
   @override
   Widget build(BuildContext context) {
