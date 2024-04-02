@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:sa2_flutter/Cadastro.dart';
+import 'package:sa2_flutter/DatabaseController.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
+  final String title = "Login";
+
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  final dbHelper = DatabaseHelper();
+  String resultado = "";
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
