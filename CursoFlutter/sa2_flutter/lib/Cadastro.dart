@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
 import 'package:sa2_flutter/CadastroModel.dart';
 import 'package:sa2_flutter/DatabaseController.dart';
+import 'package:sa2_flutter/Login.dart';
 
 class Cadastro extends StatefulWidget {
   @override
@@ -37,25 +39,43 @@ class FormularioCadastro extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        TextField(
+        TextFormField(
           controller: usernameController,
           decoration: InputDecoration(
             labelText: 'Nome de usuário',
           ),
+          validator: (value) {
+            if (value!.isEmpty) {
+              return ('O seu nome de usuário não pode estar vazio.');
+            }
+          },
         ),
         SizedBox(height: 20.0),
-        TextField(
+        TextFormField(
           controller: emailController,
           decoration: InputDecoration(
             labelText: 'Email',
           ),
+          validator: (value) {
+            if (value!.isEmpty) {
+              return ('O seu e-mail não pode estar vazio.');
+            }
+          },
         ),
         SizedBox(height: 20.0),
-        TextField(
+        TextFormField(
           controller: passwordController,
           decoration: InputDecoration(
             labelText: 'Senha',
           ),
+          validator: (value) {
+            if (value!.isEmpty) {
+              return ('A sua senha não pode estar vazia.');
+            } else if (value.length < 5) {
+              return ('');
+            }
+            ;
+          },
           obscureText: true,
         ),
         SizedBox(height: 20.0),
@@ -67,14 +87,39 @@ class FormularioCadastro extends StatelessWidget {
                 password: passwordController.text);
             await dbHelper.create(novoUsuario);
             Navigator.of(context).pop();
-            // Limpar o campo de texto após adicionar a tarefa
+            //Limpando os campos de texto
             usernameController.clear();
             emailController.clear();
             passwordController.clear();
+            //Navigator push para enviar para outra página da aplicação
+            _contaCriada(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Login()),
+            );
           },
           child: Text('Cadastrar'),
         ),
       ],
     );
   }
+
+  void _contaCriada(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text("Pronto!"),
+            content: Text("Conta criada."),
+            actions: [okButton],
+          );
+        });
+  }
+
+  Widget okButton = TextButton(
+    child: Text(""),
+    onPressed: () {
+      Navigator.of(context as BuildContext).pop();
+    },
+  );
 }
