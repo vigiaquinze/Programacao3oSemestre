@@ -20,10 +20,11 @@
 
 <body>
     <div th:insert="~{fragmentos/header :: header}"></div>
+    <span th:text="${msg}"></span>
     <div class="container">
         <div class="form-container">
           <h2 class="mb-4">Login de Administrador</h2>
-          <form>
+          <form action="acesso-adm" method="post">
             <div class="form-group">
               <label for="email">CPF:</label>
               <input placeholder="Digite seu CPF..." type="text" class="form-control" id="cpf" name="cpf" required>
