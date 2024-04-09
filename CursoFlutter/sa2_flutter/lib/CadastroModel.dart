@@ -15,7 +15,6 @@ class CadastroModel {
   // Método para converter um contato para um mapa (para salvar no banco de dados)
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
       'username': username,
       'email': email,
       'password': password,

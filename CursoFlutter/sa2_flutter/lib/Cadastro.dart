@@ -102,13 +102,13 @@ class _CadastroState extends State<Cadastro> {
                                       email: emailController.text,
                                       password: passwordController.text);
                                   await dbHelper.create(novoUsuario);
-                                  Navigator.of(context).pop();
+                                  _contaCriada(context);
                                   //Limpando os campos de texto
                                   usernameController.clear();
                                   emailController.clear();
                                   passwordController.clear();
                                   //Navigator push para enviar para outra página da aplicação
-                                  _contaCriada(context);
+                                  Navigator.of(context).pop();
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
