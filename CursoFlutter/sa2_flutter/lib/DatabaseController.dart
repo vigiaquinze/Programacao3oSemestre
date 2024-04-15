@@ -92,4 +92,8 @@ class DatabaseHelper {
       return;
     }
   }
+
+  getLoginFoundVer() {
+    this.loginFoundVer = loginFoundVer;
+  }
 }

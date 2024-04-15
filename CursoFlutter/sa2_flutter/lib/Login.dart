@@ -91,9 +91,6 @@ class _LoginState extends State<Login> {
                             print("Passou pelo IF");
                             await dbHelper.getUsers(
                                 emailController.text, passwordController.text);
-                            //Limpando os campos de texto
-                            emailController.clear();
-                            passwordController.clear();
                             if (dbHelper.getLoginFoundVer() == false) {
                               print('bloqueado');
                             } else if (dbHelper.getLoginFoundVer() == true) {
@@ -104,6 +101,9 @@ class _LoginState extends State<Login> {
                                 MaterialPageRoute(
                                     builder: (context) => HomePage()),
                               );
+                            //Limpando os campos de texto
+                            emailController.clear();
+                            passwordController.clear();
                             }
                           }
                         },
