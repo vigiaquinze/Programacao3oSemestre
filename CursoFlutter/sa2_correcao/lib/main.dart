@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
+
 import 'View/LoginPageView.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'SA2',
+      title: "SA2",
       debugShowCheckedModeBanner: false,
-      home: Login(),);}
+      home: PaginaLogin(),
+    );
+  }
 }

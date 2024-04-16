@@ -1,129 +1,136 @@
 import 'package:flutter/material.dart';
-import 'package:sa2_correcao/Controller/BancoDados.dart';
-import 'package:sa2_correcao/Model/Usuario.dart';
-import 'package:sa2_correcao/View/HomePageView.dart';
-import 'package:sa2_correcao/View/CadastroPageView.dart';
+import 'package:flutter/services.dart';
 
-class Login extends StatefulWidget {
+import '../Controller/BancoDados.dart';
+import '../Model/Usuario.dart';
+import 'CadastroPageView.dart';
+import 'HomePageView.dart';
+
+class PaginaLogin extends StatefulWidget {
+  const PaginaLogin({super.key});
+
   @override
-  State<Login> createState() => _LoginState();
+  State<PaginaLogin> createState() => _PaginaLoginState();
 }
 
-class _LoginState extends State<Login> {
-  final dbHelper = DatabaseHelper();
+class _PaginaLoginState extends State<PaginaLogin> {
   final _formKey = GlobalKey<FormState>();
-  bool _validate = false;
-  bool loginFound = false;
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  String resultado = "";
-
-  _login() async {
-    await () {
-      if (passwordController.text != null && emailController.text != null) {
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => PaginaHome(email: emailController.text,),
-            ));
-      } else {
-        setState(() {
-          resultado = "Falha no login";
-        });
-      }
-    };
-  }
-
-  _cadastro() {
-    Navigator.pushNamed(context, "/cadastro");
-  }
-
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _senhaController = TextEditingController();
+  bool _loading = false;
+  
   @override
   Widget build(BuildContext context) {
-    bool loginFoundVer = false;
-    return MaterialApp(
-        home: Scaffold(
-            appBar: AppBar(
-              title: Text('Login'),
-            ),
-            body: SingleChildScrollView(
-              reverse: true,
-              child: Container(
-                padding: const EdgeInsets.all(10.0),
-                child: Form(
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  key: _formKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      SizedBox(height: 20.0),
-                      TextFormField(
-                        controller: emailController,
-                        decoration: InputDecoration(
-                          labelText: 'Email',
-                        ),
-                        validator: (emailController) {
-                          if (emailController!.isEmpty) {
-                            return ('O seu e-mail não pode estar vazio.');
-                          }
-                        },
-                      ),
-                      SizedBox(height: 20.0),
-                      TextFormField(
-                        controller: passwordController,
-                        decoration: InputDecoration(
-                          labelText: 'Senha',
-                        ),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return ('A sua senha não pode estar vazia.');
-                          } else if (value.length < 5) {
-                            return ('Sua senha deve conter pelo menos 5 caracteres');
-                          }
-                          ;
-                        },
-                        obscureText: true,
-                      ),
-                      SizedBox(height: 20.0),
-                      ElevatedButton(
-                        onPressed: () async {
-                          if (_formKey.currentState!.validate()) {
-                            print("Passou pelo IF");
-                            await dbHelper.getUsers(
-                                emailController.text, passwordController.text);
-                            if (dbHelper.getLoginFoundVer() == false) {
-                              print('bloqueado');
-                            } else if (dbHelper.getLoginFoundVer() == true) {
-                              print(
-                                  "Passou pelo if de novo. Valor da variavel ${loginFoundVer}");
-                                  _login();
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => PaginaHome(email: emailController.text,)),
-                              );
-                            //Limpando os campos de texto
-                            emailController.clear();
-                            passwordController.clear();
-                            }
-                          }
-                        },
-                        child: Text('Entrar na Conta'),
-                      ),
-                      SizedBox(height: 20.0),
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => PaginaCadastro()),
-                          );
-                        },
-                        child: Text('Criar uma Conta'),
-                      ),
-                    ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Tela de Login"),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Form(
+          key: _formKey,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  'Login',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-              ),
-            )));
+                SizedBox(height: 20),
+                TextFormField(
+                  controller: _emailController,
+                  decoration: InputDecoration(labelText: 'E-mail'),
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return 'Por favor, insira seu e-mail';
+                    } else if (!isValidEmail(value)) {
+                      return 'E-mail inválido';
+                    }
+                    return null;
+                  },
+                  inputFormatters: [
+                    FilteringTextInputFormatter.deny(RegExp(r'[0-9]')),
+                  ],
+                ),
+                SizedBox(height: 20),
+                TextFormField(
+                  controller: _senhaController,
+                  decoration: InputDecoration(labelText: 'Senha'),
+                  obscureText: true,
+                  validator: (value) {
+                    if (value?.trim().isEmpty ?? true) {
+                      return 'Por favor, insira sua senha';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 20),
+                _loading
+                    ? CircularProgressIndicator()
+                    : ElevatedButton(
+                        onPressed: _login,
+                        child: Text('Acessar'),
+                      ),
+                SizedBox(height: 20),
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => PaginaCadastro()),
+                    );
+                  },
+                  child: Text('Não tem uma conta? Cadastre-se'),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _login() async {
+    if (_formKey.currentState!.validate()) {
+      String email = _emailController.text;
+      String senha = _senhaController.text;
+
+      setState(() {
+        _loading = true;
+      });
+
+      BancoDadosCrud bancoDados = BancoDadosCrud();
+      try {
+        Usuario? usuario = await bancoDados.getUsuario(email, senha);
+        if (usuario != null) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => PaginaHome(email:usuario.email),
+            ),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('Email ou senha incorretos'),
+          ));
+        }
+      } catch (e) {
+        print('Erro durante o login: $e');
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Erro durante o login. Tente novamente mais tarde.'),
+        ));
+      } finally {
+        setState(() {
+          _loading = false;
+        });
+      }
+    }
+  }
+
+  bool isValidEmail(String email) {
+    return RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email);
   }
 }

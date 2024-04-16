@@ -1,32 +1,27 @@
-import 'package:flutter/material.dart';
-
 class Usuario {
-  int? id;
-  String username;
+  //atributos
+  late int id;
+  String nome;
   String email;
-  String password;
+  String senha;
+  //Construtor
+  Usuario({required this.nome, required this.email, required this.senha, required id});
 
-  Usuario({
-    required this.username,
-    required this.email,
-    required this.password,
-  });
-
-  // Método para converter um contato para um mapa (para salvar no banco de dados)
   Map<String, dynamic> toMap() {
-    return {
-      'username': username,
+     return {
+      'u_nome': nome,
       'email': email,
-      'password': password,
+      'senha': senha,
     };
   }
 
-  // Método de fábrica para criar um objeto ContactModel a partir de um mapa (para ler do banco de dados)
   factory Usuario.fromMap(Map<String, dynamic> map) {
     return Usuario(
-      username: map['username'],
+      id:map['id'],
+      nome: map['u_nome'],
       email: map['email'],
-      password: map['password'],
+      senha: map['senha'],
     );
   }
+
 }

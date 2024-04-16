@@ -1,66 +1,80 @@
-import 'package:flutter/material.dart';
+
 import 'package:path/path.dart';
-import 'package:sqflite/sqflite.dart';
 import 'package:sa2_correcao/Model/Usuario.dart';
+import 'package:sqflite/sqflite.dart';
 
-class DatabaseHelper {
-  bool loginFoundVer = false;
-
-  static const String DATABASE_NAME = 'userdata.db'; //nome do banco de dados
-  static const String TABLE_NAME = 'userdata'; //nome da tabela
+class BancoDadosCrud {
+  static const String Nome_BD = 'usuarios.db'; // Nome do banco de dados
+  static const String Nome_Tabela = 'usuarios'; // Nome da tabela
   static const String
-      CREATE_USERS_TABLE_SCRIPT = //script SQL para criar a tabela
-      "CREATE TABLE IF NOT EXISTS userdata (id SERIAL PRIMARY KEY, username TEXT, email TEXT UNIQUE, password TEXT)";
+      Script_Criacao_Tabela = // Script SQL para criar a tabela
+      "CREATE TABLE IF NOT EXISTS usuarios("+
+        "id SERIAL PRIMARY KEY," +
+          "u_nome TEXT, email TEXT UNIQUE," +
+          "senha TEXT)";
 
+  
   Future<Database> _getDatabase() async {
     return openDatabase(
-      join(await getDatabasesPath(), DATABASE_NAME),
+      join(
+          await getDatabasesPath(), Nome_BD), // Caminho do banco de dados
       onCreate: (db, version) {
-        print("Tabela criada!");
-        return db.execute(CREATE_USERS_TABLE_SCRIPT);
+        return db.execute(
+            Script_Criacao_Tabela); // Executa o script de criação da tabela quando o banco é criado
       },
       version: 1,
     );
   }
-
   // Método para criar um novo contato no banco de dados
   Future<void> create(Usuario usuario) async {
     try {
       final Database db = await _getDatabase();
-      await db.insert(TABLE_NAME, usuario.toMap());
-      print("Cadastro criado!"); // Insere o contato no banco de dados
+      await db.insert(
+          Nome_Tabela, usuario.toMap()); // Insere o contato no banco de dados
     } catch (ex) {
       print(ex);
       return;
     }
   }
 
-  // Método para obter todos os contatos do banco de dados
-  Future<List<Usuario>> getUsers(String email, String password) async {
+  // Método para obter o dado do usuario
+  Future<Usuario?> getUsuario(String email, String senha) async {
     try {
-      Database db = await _getDatabase();
-      List<Map<String, dynamic>> maps = await db.query("userdata WHERE email='${email}' AND password='${password}'");
-      if (maps.isEmpty) {
-        loginFoundVer = false;
-        print("Não encontrado. Valor da variável: ${loginFoundVer}");
-      } else {
-        loginFoundVer = true;
-        print("Encontrado.");
+      final Database db = await _getDatabase();
+      final List<Map<String, dynamic>> maps =
+          await db.query(Nome_Tabela,
+          where: 'email = ? AND senha = ?',
+          whereArgs: [email,senha]
+          ); // Consulta todos os contatos na tabela
+
+      if (maps.isNotEmpty){
+        return Usuario.fromMap(maps[0]);
+      }else{
+        return null;
       }
-      return List.generate(
-        maps.length,
-        (i) {
-          return Usuario.fromMap(maps[
-              i]); // Converte os resultados da consulta para objetos CadastroModel
-        },
-      );
     } catch (ex) {
       print(ex);
-      return [];
+      return null;
     }
   }
+  // Método para verificar existência do usuario
+  Future<bool> existsUsuario(String email, String senha) async {
+    try {
+      final Database db = await _getDatabase();
+      final List<Map<String, dynamic>> maps =
+          await db.query(Nome_Tabela,
+          where: 'email = ? AND senha = ?',
+          whereArgs: [email,senha]
+          ); // Consulta todos os contatos na tabela
 
-  getLoginFoundVer() {
-    this.loginFoundVer = loginFoundVer;
+      if (maps.isNotEmpty){
+        return true;
+      }else{
+        return false;
+      }
+    } catch (ex) {
+      print(ex);
+      return false;
+    }
   }
 }
