@@ -72,7 +72,8 @@ class _PaginaHomeState extends State<PaginaHome> {
                       controller:
                           _controller, // Controlador de texto para o campo de entrada
                       decoration: InputDecoration(
-                          hintText: '${index}'), // Dica no campo de entrada
+                          hintText:
+                              'Insira o novo nome da tarefa'), // Dica no campo de entrada
                     ),
                     actions: <Widget>[
                       TextButton(
