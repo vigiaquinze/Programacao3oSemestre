@@ -15,7 +15,7 @@ class PaginaLogin extends StatefulWidget {
 
 class _PaginaLoginState extends State<PaginaLogin> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _emailController = TextEditingController();
+  TextEditingController _nomeController = TextEditingController();
   TextEditingController _senhaController = TextEditingController();
   bool _loading = false;
 
@@ -42,13 +42,11 @@ class _PaginaLoginState extends State<PaginaLogin> {
                 ),
                 SizedBox(height: 20),
                 TextFormField(
-                  controller: _emailController,
-                  decoration: InputDecoration(labelText: 'E-mail'),
+                  controller: _nomeController,
+                  decoration: InputDecoration(labelText: 'Nome de usuário'),
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return 'Por favor, insira seu e-mail';
-                    } else if (!isValidEmail(value)) {
-                      return 'E-mail inválido';
+                      return 'Por favor, insira seu nome de usuário';
                     }
                     return null;
                   },
@@ -95,7 +93,7 @@ class _PaginaLoginState extends State<PaginaLogin> {
 
   void _login() async {
     if (_formKey.currentState!.validate()) {
-      String email = _emailController.text;
+      String nome = _nomeController.text;
       String senha = _senhaController.text;
 
       setState(() {
@@ -104,17 +102,17 @@ class _PaginaLoginState extends State<PaginaLogin> {
 
       BancoDadosCrud bancoDados = BancoDadosCrud();
       try {
-        Usuario? usuario = await bancoDados.getUsuario(email, senha);
+        Usuario? usuario = await bancoDados.getUsuario(nome, senha);
         if (usuario != null) {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => PaginaHome(email: usuario.email),
+              builder: (context) => PaginaHome(nome: usuario.nome),
             ),
           );
         } else {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text('Email ou senha incorretos'),
+            content: Text('Nome de usuário ou senha incorretos'),
           ));
         }
       } catch (e) {
@@ -128,9 +126,5 @@ class _PaginaLoginState extends State<PaginaLogin> {
         });
       }
     }
-  }
-
-  bool isValidEmail(String email) {
-    return RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email);
   }
 }

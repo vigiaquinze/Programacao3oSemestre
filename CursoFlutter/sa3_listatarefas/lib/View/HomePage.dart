@@ -6,21 +6,21 @@ import 'package:provider/provider.dart';
 import '../Model/Tarefa.dart';
 
 class PaginaHome extends StatefulWidget {
-  String email;
-  PaginaHome({required this.email});
+  String nome;
+  PaginaHome({required this.nome});
 
   @override
-  State<PaginaHome> createState() => _PaginaHomeState(email: email);
+  State<PaginaHome> createState() => _PaginaHomeState(nome: nome);
 }
 
 class _PaginaHomeState extends State<PaginaHome> {
-  String email;
+  String nome;
 
   final TextEditingController _controller = TextEditingController();
 
   List<String> tasks = []; // Lista de tarefas
 
-  _PaginaHomeState({required this.email});
+  _PaginaHomeState({required this.nome});
 
   @override
   void initState() {
@@ -32,7 +32,7 @@ class _PaginaHomeState extends State<PaginaHome> {
     SharedPreferences prefs = await SharedPreferences
         .getInstance(); // Obtém as preferências compartilhadas
     setState(() {
-      tasks = prefs.getStringList('${email}_tasks') ??
+      tasks = prefs.getStringList('${nome}_tasks') ??
           []; // Carrega as tarefas armazenadas ou uma lista vazia se não houver tarefas
     });
   }
@@ -40,7 +40,7 @@ class _PaginaHomeState extends State<PaginaHome> {
   Future<void> saveTasks() async {
     SharedPreferences prefs = await SharedPreferences
         .getInstance(); // Obtém as preferências compartilhadas
-    await prefs.setStringList('${email}_tasks',
+    await prefs.setStringList('${nome}_tasks',
         tasks); // Salva a lista de tarefas nas preferências compartilhadas
   }
 
@@ -60,6 +60,39 @@ class _PaginaHomeState extends State<PaginaHome> {
                 tasks.removeAt(index); // Remove a tarefa da lista
                 saveTasks(); // Salva as tarefas atualizadas
               });
+            },
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: Text(
+                        'Editar Tarefa'), // Título do diálogo de nova tarefa
+                    content: TextField(
+                      controller:
+                          _controller, // Controlador de texto para o campo de entrada
+                      decoration: InputDecoration(
+                          hintText: '${index}'), // Dica no campo de entrada
+                    ),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () {
+                          setState(() {
+                            tasks.removeAt(
+                                index); // Adiciona a nova tarefa à lista
+                            tasks.add(_controller
+                                .text); // Adiciona a nova tarefa à lista
+                            saveTasks(); // Salva as tarefas atualizadas
+                            _controller.clear(); // Limpa o campo de entrada
+                            Navigator.of(context).pop(); // Fecha o diálogo
+                          });
+                        },
+                        child: Text('Editar'), // Botão para adicionar a tarefa
+                      ),
+                    ],
+                  );
+                },
+              );
             },
           );
         },

@@ -35,12 +35,12 @@ class BancoDadosCrud {
   }
 
   // Método para obter o dado do usuario
-  Future<Usuario?> getUsuario(String email, String senha) async {
+  Future<Usuario?> getUsuario(String nome, String senha) async {
     try {
       final Database db = await _getDatabase();
       final List<Map<String, dynamic>> maps = await db.query(Nome_Tabela,
-          where: 'email = ? AND senha = ?',
-          whereArgs: [email, senha]); // Consulta todos os contatos na tabela
+          where: 'u_nome = ? AND senha = ?',
+          whereArgs: [nome, senha]); // Consulta todos os contatos na tabela
 
       if (maps.isNotEmpty) {
         return Usuario.fromMap(maps[0]);
@@ -54,12 +54,12 @@ class BancoDadosCrud {
   }
 
   // Método para verificar existência do usuario
-  Future<bool> existsUsuario(String email, String senha) async {
+  Future<bool> existsUsuario(String nome, String senha) async {
     try {
       final Database db = await _getDatabase();
       final List<Map<String, dynamic>> maps = await db.query(Nome_Tabela,
-          where: 'email = ? AND senha = ?',
-          whereArgs: [email, senha]); // Consulta todos os contatos na tabela
+          where: 'u_nome = ? AND senha = ?',
+          whereArgs: [nome, senha]); // Consulta todos os contatos na tabela
 
       if (maps.isNotEmpty) {
         return true;

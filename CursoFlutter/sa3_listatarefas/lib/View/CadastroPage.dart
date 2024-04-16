@@ -59,7 +59,7 @@ class _PaginaCadastroState extends State<PaginaCadastro> {
                 SizedBox(height: 20),
                 TextFormField(
                   controller: _nomeController,
-                  decoration: InputDecoration(labelText: 'Nome'),
+                  decoration: InputDecoration(labelText: 'Nome de usuário'),
                   validator: (value) {
                     if (value?.trim().isEmpty ?? true) {
                       return 'Por favor, insira seu nome de usuário';
