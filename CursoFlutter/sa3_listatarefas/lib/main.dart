@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'View/LoginPageView.dart';
+import 'View/LoginPage.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "SA3",
+      title: "SA2",
       debugShowCheckedModeBanner: false,
       home: PaginaLogin(),
     );
