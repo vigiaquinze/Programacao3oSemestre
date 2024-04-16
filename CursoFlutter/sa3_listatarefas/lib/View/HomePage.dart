@@ -58,6 +58,9 @@ class _PaginaHomeState extends State<PaginaHome> {
             onLongPress: () {
               setState(() {
                 tasks.removeAt(index); // Remove a tarefa da lista
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Tarefa removida com sucesso!')),
+                );
                 saveTasks(); // Salva as tarefas atualizadas
               });
             },
@@ -85,6 +88,10 @@ class _PaginaHomeState extends State<PaginaHome> {
                                 .text); // Adiciona a nova tarefa à lista
                             saveTasks(); // Salva as tarefas atualizadas
                             _controller.clear(); // Limpa o campo de entrada
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                  content: Text('Tarefa editada com sucesso!')),
+                            );
                             Navigator.of(context).pop(); // Fecha o diálogo
                           });
                         },
@@ -120,6 +127,10 @@ class _PaginaHomeState extends State<PaginaHome> {
                         saveTasks(); // Salva as tarefas atualizadas
                         _controller.clear(); // Limpa o campo de entrada
                         Navigator.of(context).pop(); // Fecha o diálogo
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                              content: Text('Tarefa adicionada com sucesso!')),
+                        );
                       });
                     },
                     child: Text('Adicionar'), // Botão para adicionar a tarefa
