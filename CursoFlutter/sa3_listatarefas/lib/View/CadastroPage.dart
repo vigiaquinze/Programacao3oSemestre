@@ -62,10 +62,12 @@ class _PaginaCadastroState extends State<PaginaCadastro> {
                   decoration: InputDecoration(labelText: 'Nome'),
                   validator: (value) {
                     if (value?.trim().isEmpty ?? true) {
-                      return 'Por favor, insira seu nome';
+                      return 'Por favor, insira seu nome de usuário';
+                    } else if (_nomeController.text.contains(' ')) {
+                      return 'Seu nome de usuário não pode conter espaços';
                     }
                     if (!RegExp(r'^[a-zA-ZÀ-ú-\s]+$').hasMatch(value!)) {
-                      return 'Nome inválido';
+                      return 'Nome de usuário inválido';
                     }
                     return null;
                   },
