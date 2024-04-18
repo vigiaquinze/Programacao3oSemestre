@@ -20,10 +20,10 @@
 
 <body>
     <div th:insert="~{fragmentos/header :: header}"></div>
-    <span th:text="${msg}"></span>
     <div class="container">
         <div class="form-container">
           <h2 class="mb-4">Login de Administrador</h2>
+          <span th:class="${classe}" th:text="${msg}"></span>
           <form action="acesso-adm" method="post">
             <div class="form-group">
               <label for="email">CPF:</label>
