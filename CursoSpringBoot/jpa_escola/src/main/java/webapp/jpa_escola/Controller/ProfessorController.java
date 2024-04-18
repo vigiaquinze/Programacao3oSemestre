@@ -9,29 +9,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import webapp.jpa_escola.Model.Administrador;
-import webapp.jpa_escola.Repository.AdministradorRepository;
-import webapp.jpa_escola.Repository.PreCadAdmRepository;
+import webapp.jpa_escola.Model.Professor;
+import webapp.jpa_escola.Repository.ProfessorRepository;
+import webapp.jpa_escola.Controller.AdministradorController;
 
-@Controller
-public class AdministradorController {
+public class ProfessorController {
     @Autowired
-    private AdministradorRepository admr;
-
-    @Autowired
-    private PreCadAdmRepository pcar;
+    private ProfessorRepository profr;
 
     boolean acessoAdm = false;
-    
-    @PostMapping("cad-prof")
-    public ModelAndView cadastroAdmBD(Administrador adm, RedirectAttributes attributes) {
 
-        boolean verificaCpf = pcar.existsById(adm.getCpf());
+    @PostMapping("cad-prof")
+    public ModelAndView cadastroprofBD(Professor prof, RedirectAttributes attributes) {
+
 
         ModelAndView mv = new ModelAndView("redirect:/login-prof");
 
-        if (verificaCpf) {
-            admr.save(adm);
+        if (acessoAdm) {
+            profr.save(prof);
             String mensagem = "Cadastro realizado com sucesso";
             System.out.println(mensagem);
             attributes.addFlashAttribute("msg", mensagem);
@@ -53,8 +48,8 @@ public class AdministradorController {
     ModelAndView mv = new ModelAndView("redirect:/interna-prof");// página interna de acesso
     try {
         // boolean acessoCPF = cpf.equals(ar.findByCpf(cpf).getCpf());
-        boolean acessoCPF = admr.existsById(cpf);
-        boolean acessoSenha = senha.equals(admr.findByCpf(cpf).getSenha());
+        boolean acessoCPF = profr.existsById(cpf);
+        boolean acessoSenha = senha.equals(profr.findByCpf(cpf).getSenha());
 
         if (acessoCPF && acessoSenha) {
             acessoAdm = true;
@@ -80,7 +75,7 @@ public class AdministradorController {
 
     
     @GetMapping("/interna-prof")
-    public ModelAndView acessoPageInternaAdm(RedirectAttributes attributes) {
+    public ModelAndView acessoPageInternaProf(RedirectAttributes attributes) {
         ModelAndView mv = new ModelAndView("interna/interna-prof");
         if (acessoAdm) {
             System.out.println("Acesso permitido!");
@@ -95,7 +90,7 @@ public class AdministradorController {
     }
 
     @PostMapping("logout-prof")
-    public ModelAndView logoutAdm(RedirectAttributes attributes) {
+    public ModelAndView logoutprof(RedirectAttributes attributes) {
         ModelAndView mv = new ModelAndView("redirect:/interna-prof");
         attributes.addFlashAttribute("msg", "Logout efetuado.");
         attributes.addFlashAttribute("classe", "verde");

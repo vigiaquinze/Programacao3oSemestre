@@ -23,9 +23,9 @@ public class IndexController {
         ModelAndView mv = new ModelAndView("login/login-adm");
         return mv;
     }
-    @GetMapping("/cadastro-adm")
+    @GetMapping("/cad-adm")
     public String acessoCadastroAdm() {
-        return "cadastro/cadastro-adm";
+        return "cadastro/cad-adm";
     }
     
 }
