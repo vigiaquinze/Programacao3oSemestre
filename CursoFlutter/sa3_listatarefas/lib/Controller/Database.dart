@@ -71,4 +71,23 @@ class BancoDadosCrud {
       return false;
     }
   }
+
+    // Método para verificar existência do usuario
+  Future<bool> existsUsername(String nome) async {
+    try {
+      final Database db = await _getDatabase();
+      final List<Map<String, dynamic>> maps = await db.query(Nome_Tabela,
+          where: 'u_nome = ?',
+          whereArgs: [nome]); // Consulta todos os contatos na tabela
+
+      if (maps.isNotEmpty) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (ex) {
+      print(ex);
+      return false;
+    }
+  }
 }
