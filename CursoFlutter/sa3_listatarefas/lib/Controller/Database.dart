@@ -8,7 +8,7 @@ class BancoDadosCrud {
   static const String Script_Criacao_Tabela = // Script SQL para criar a tabela
       "CREATE TABLE IF NOT EXISTS usuarios(" +
           "id SERIAL PRIMARY KEY," +
-          "u_nome TEXT, email TEXT UNIQUE," +
+          "u_nome TEXT UNIQUE, email TEXT UNIQUE," +
           "senha TEXT)";
 
   Future<Database> _getDatabase() async {
