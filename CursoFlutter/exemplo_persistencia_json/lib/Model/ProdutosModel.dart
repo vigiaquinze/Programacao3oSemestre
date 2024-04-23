@@ -5,9 +5,14 @@ class Produto {
   Produto({required this.nome, required this.preco, required this.categoria});
   factory Produto.fromJson(Map<String, dynamic> map) {
     return Produto(
-      nome:map['nome'],
-      preco:map['preco'],
-      categoria:map['categoria']
-    );
+        nome: map['nome'], preco: map['preco'], categoria: map['categoria']);
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'nome': nome,
+      'preco': preco,
+      'categoria': categoria,
+    };
   }
 }
