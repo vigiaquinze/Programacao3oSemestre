@@ -50,4 +50,12 @@ class ProdutoController {
       print('Erro ao salvar produtos no arquivo: $e');
     }
   }
+
+  void removerProduto(Produto produto) {
+    try {
+      _produtos.remove(produto);
+    } catch (e) {
+      print('Erro ao remover: $e');
+    }
+  }
 }

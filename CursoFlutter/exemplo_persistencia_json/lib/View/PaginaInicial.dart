@@ -21,6 +21,8 @@ class _HomePageState extends State<HomePage> {
     _produtoController.loadProdutos();
   }
 
+  void _loadProdutos() {}
+
   void _adicionarProduto() {
     final nome = _nomeController.text;
     final preco = double.tryParse(_precoController.text) ?? 0.0;
@@ -52,6 +54,8 @@ class _HomePageState extends State<HomePage> {
       _categoriaController.clear();
     }
   }
+
+  void _removerProduto() {}
 
   @override
   Widget build(BuildContext context) {
@@ -104,6 +108,7 @@ class _HomePageState extends State<HomePage> {
                     title: Text(produto.nome),
                     subtitle: Text(
                         'Preço: ${produto.preco.toStringAsFixed(2)} - Categoria: ${produto.categoria}'),
+                    onLongPress: _removerProduto,
                   );
                 },
               ),
