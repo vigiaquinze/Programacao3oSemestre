@@ -37,6 +37,22 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  void _salvarProdutosNoArquivo() {
+    final nome = _nomeController.text;
+    final preco = double.tryParse(_precoController.text) ?? 0.0;
+    final categoria = _categoriaController.text;
+    if (nome.isNotEmpty && preco > 0 && categoria.isNotEmpty) {
+      setState(() {
+        _produtoController.adicionarProduto(
+            Produto(nome: nome, preco: preco, categoria: categoria));
+        _produtoController.saveProdutos();
+      });
+      _nomeController.clear();
+      _precoController.clear();
+      _categoriaController.clear();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,6 +85,12 @@ class _HomePageState extends State<HomePage> {
               child: Text('Adicionar Produto'),
             ),
             SizedBox(height: 24.0),
+            ElevatedButton(
+                onPressed: _salvarProdutosNoArquivo,
+                child: Text('Salvar no arquivo')),
+            SizedBox(
+              height: 10.0,
+            ),
             Text(
               'Lista de Produtos:',
               style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),

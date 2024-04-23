@@ -1,7 +1,7 @@
 [
     {
         "nome": "Computador",
-        "preco": 2.500,
+        "preco": 2500.00,
         "categoria": "Informática"
     },
     {

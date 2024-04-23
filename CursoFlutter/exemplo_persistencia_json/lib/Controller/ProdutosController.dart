@@ -40,4 +40,14 @@ class ProdutoController {
   void adicionarProduto(Produto produto) {
     _produtos.add(produto);
   }
+
+  // Método para salvar os produtos no arquivo JSON(volta)
+  Future<void> salvarProdutosNoArquivo() async {
+    try {
+      final jsonList = _produtos.map((produto) => produto.toJson()).toList();
+      await File('assets/produtos.json').writeAsString(json.encode(jsonList));
+    } catch (e) {
+      print('Erro ao salvar produtos no arquivo: $e');
+    }
+  }
 }
