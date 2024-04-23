@@ -1,0 +1,16 @@
+- Página inicial
+    - Cadastrar produtos (botões)
+    - Listar produtos (botões)
+
+- Página de cadastro
+    - Formulário
+        - ID (SERIAL)
+        - Nome (TEXT)
+        - Descrição (TEXT)
+        - Quantidade (INT)
+        - Foto (TEXT)
+        - Preço (DOUBLE)
+        - Categorias[] (List <String>)
+
+- Página Listar(???)
+    - Clicar no produto => Abrir página do produto
