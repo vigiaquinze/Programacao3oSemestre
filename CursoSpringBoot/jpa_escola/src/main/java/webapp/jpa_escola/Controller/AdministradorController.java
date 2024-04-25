@@ -23,12 +23,12 @@ public class AdministradorController {
 
     boolean acessoAdm = false;
     
-    @PostMapping("cad-prof")
+    @PostMapping("cad-adm")
     public ModelAndView cadastroAdmBD(Administrador adm, RedirectAttributes attributes) {
 
         boolean verificaCpf = pcar.existsById(adm.getCpf());
 
-        ModelAndView mv = new ModelAndView("redirect:/login-prof");
+        ModelAndView mv = new ModelAndView("redirect:/login-adm");
 
         if (verificaCpf) {
             admr.save(adm);
@@ -46,11 +46,11 @@ public class AdministradorController {
         return mv;
     }
 
-        @PostMapping("acesso-prof")
+        @PostMapping("acesso-adm")
         public ModelAndView acessoAdmLogin(@RequestParam String cpf,
         @RequestParam String senha,
         RedirectAttributes attributes) {
-    ModelAndView mv = new ModelAndView("redirect:/interna-prof");// página interna de acesso
+    ModelAndView mv = new ModelAndView("redirect:/interna-adm");// página interna de acesso
     try {
         // boolean acessoCPF = cpf.equals(ar.findByCpf(cpf).getCpf());
         boolean acessoCPF = admr.existsById(cpf);
@@ -63,7 +63,7 @@ public class AdministradorController {
             System.out.println(mensagem);
             attributes.addFlashAttribute("msg", mensagem);
             attributes.addFlashAttribute("classe", "vermelho");
-            mv.setViewName("redirect:/login-prof");
+            mv.setViewName("redirect:/login-adm");
         }
         return mv;
         
@@ -72,31 +72,31 @@ public class AdministradorController {
         System.out.println(mensagem);
         attributes.addFlashAttribute("msg", mensagem);
         attributes.addFlashAttribute("classe", "vermelho");
-        mv.setViewName("redirect:/login-prof");
+        mv.setViewName("redirect:/login-adm");
         return mv;
     }
    
 }
 
     
-    @GetMapping("/interna-prof")
+    @GetMapping("/interna-adm")
     public ModelAndView acessoPageInternaAdm(RedirectAttributes attributes) {
-        ModelAndView mv = new ModelAndView("interna/interna-prof");
+        ModelAndView mv = new ModelAndView("interna/interna-adm");
         if (acessoAdm) {
             System.out.println("Acesso permitido!");
         } else {
             String mensagem = "Acesso negado. Faça login.";
             System.out.println(mensagem);
-            mv.setViewName("redirect:/login-prof");
+            mv.setViewName("redirect:/login-adm");
             attributes.addFlashAttribute("msg", mensagem);
             attributes.addFlashAttribute("classe", "vermelho");
         }
         return mv;
     }
 
-    @PostMapping("logout-prof")
+    @PostMapping("logout-adm")
     public ModelAndView logoutAdm(RedirectAttributes attributes) {
-        ModelAndView mv = new ModelAndView("redirect:/interna-prof");
+        ModelAndView mv = new ModelAndView("redirect:/interna-adm");
         attributes.addFlashAttribute("msg", "Logout efetuado.");
         attributes.addFlashAttribute("classe", "verde");
         acessoAdm = false;
