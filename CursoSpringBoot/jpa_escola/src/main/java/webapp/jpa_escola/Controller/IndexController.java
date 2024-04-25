@@ -32,5 +32,9 @@ public class IndexController {
         ModelAndView mv = new ModelAndView("login/login-prof");
         return mv;
     }
+    @GetMapping("/cad-prof")
+    public String acessoCadastroProf(){
+        return "cadastro/cad-prof";
+    }
     
 }
