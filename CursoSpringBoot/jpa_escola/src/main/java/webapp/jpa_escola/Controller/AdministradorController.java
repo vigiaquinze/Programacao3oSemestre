@@ -23,6 +23,14 @@ public class AdministradorController {
 
     boolean acessoAdm = false;
     
+    public boolean isAcessoAdm() {
+        return isAcessoAdm();
+    }
+
+    public void setAcessoAdm(boolean acessoAdm) {
+        this.acessoAdm = acessoAdm;
+    }
+
     @PostMapping("cad-adm")
     public ModelAndView cadastroAdmBD(Administrador adm, RedirectAttributes attributes) {
 

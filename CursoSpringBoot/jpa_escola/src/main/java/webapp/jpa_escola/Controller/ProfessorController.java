@@ -16,8 +16,9 @@ import webapp.jpa_escola.Controller.AdministradorController;
 public class ProfessorController {
     @Autowired
     private ProfessorRepository profr;
+    private AdministradorController admc;
 
-    boolean acessoAdm = false;
+    public boolean acessoAdm = false;
 
     @PostMapping("cad-prof")
     public ModelAndView cadastroprofBD(Professor prof, RedirectAttributes attributes) {
