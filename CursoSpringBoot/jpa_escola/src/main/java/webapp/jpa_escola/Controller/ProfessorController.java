@@ -18,11 +18,12 @@ public class ProfessorController {
     private ProfessorRepository profr;
 
     AdministradorController admc = new AdministradorController();
-    boolean acessoAdm = admc.isAcessoAdm();
+    boolean acessoAdm = admc.acessoAdm;
+
+    boolean acessoProf = false;
 
     @PostMapping("cad-prof")
     public ModelAndView cadastroprofBD(Professor prof, RedirectAttributes attributes) {
-
 
         ModelAndView mv = new ModelAndView("redirect:/login-prof");
 
@@ -33,7 +34,7 @@ public class ProfessorController {
             attributes.addFlashAttribute("msg", mensagem);
             attributes.addFlashAttribute("classe", "verde");
         } else {
-            String mensagem = "Erro! Cadastro inválido. Verifique o pré-cadastro ou entre em contato com a secretaria.";
+            String mensagem = "Erro! Cadastro inválido. Verifique se o administrador está logado ou entre em contato com a secretaria.";
             System.out.println(mensagem);
             attributes.addFlashAttribute("msg", mensagem);
             attributes.addFlashAttribute("classe", "vermelho");
@@ -42,43 +43,42 @@ public class ProfessorController {
         return mv;
     }
 
-        @PostMapping("acesso-prof")
-        public ModelAndView acessoAdmLogin(@RequestParam String cpf,
-        @RequestParam String senha,
-        RedirectAttributes attributes) {
-    ModelAndView mv = new ModelAndView("redirect:/interna-prof");// página interna de acesso
-    try {
-        // boolean acessoCPF = cpf.equals(ar.findByCpf(cpf).getCpf());
-        boolean acessoCPF = profr.existsById(cpf);
-        boolean acessoSenha = senha.equals(profr.findByCpf(cpf).getSenha());
+    @PostMapping("acesso-prof")
+    public ModelAndView acessoAdmLogin(@RequestParam String cpf,
+            @RequestParam String senha,
+            RedirectAttributes attributes) {
+        ModelAndView mv = new ModelAndView("redirect:/interna-prof");// página interna de acesso
+        try {
+            // boolean acessoCPF = cpf.equals(ar.findByCpf(cpf).getCpf());
+            boolean acessoCPF = profr.existsById(cpf);
+            boolean acessoSenha = senha.equals(profr.findByCpf(cpf).getSenha());
 
-        if (acessoCPF && acessoSenha) {
-            acessoAdm = true;
-        } else {
-            String mensagem = "Erro! Credenciais inválidas";
+            if (acessoCPF && acessoSenha) {
+                acessoProf = true;
+            } else {
+                String mensagem = "Erro! Credenciais inválidas";
+                System.out.println(mensagem);
+                attributes.addFlashAttribute("msg", mensagem);
+                attributes.addFlashAttribute("classe", "vermelho");
+                mv.setViewName("redirect:/login-prof");
+            }
+            return mv;
+
+        } catch (Exception e) {
+            String mensagem = "Erro! Credenciais inválidas ou não existem.";
             System.out.println(mensagem);
             attributes.addFlashAttribute("msg", mensagem);
             attributes.addFlashAttribute("classe", "vermelho");
             mv.setViewName("redirect:/login-prof");
+            return mv;
         }
-        return mv;
-        
-    } catch (Exception e) {
-        String mensagem = "Erro! Credenciais inválidas ou não existem.";
-        System.out.println(mensagem);
-        attributes.addFlashAttribute("msg", mensagem);
-        attributes.addFlashAttribute("classe", "vermelho");
-        mv.setViewName("redirect:/login-prof");
-        return mv;
-    }
-   
-}
 
-    
+    }
+
     @GetMapping("/interna-prof")
     public ModelAndView acessoPageInternaProf(RedirectAttributes attributes) {
         ModelAndView mv = new ModelAndView("interna/interna-prof");
-        if (acessoAdm) {
+        if (acessoProf) {
             System.out.println("Acesso permitido!");
         } else {
             String mensagem = "Acesso negado. Faça login.";
@@ -95,7 +95,7 @@ public class ProfessorController {
         ModelAndView mv = new ModelAndView("redirect:/interna-prof");
         attributes.addFlashAttribute("msg", "Logout efetuado.");
         attributes.addFlashAttribute("classe", "verde");
-        acessoAdm = false;
+        acessoProf = false;
         return mv;
     }
 

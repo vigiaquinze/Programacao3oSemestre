@@ -22,14 +22,6 @@ public class AdministradorController {
     private PreCadAdmRepository pcar;
 
     boolean acessoAdm = false;
-    
-    public boolean isAcessoAdm() {
-        return isAcessoAdm();
-    }
-
-    public void setAcessoAdm(boolean acessoAdm) {
-        this.acessoAdm = acessoAdm;
-    }
 
     @PostMapping("cad-adm")
     public ModelAndView cadastroAdmBD(Administrador adm, RedirectAttributes attributes) {
@@ -54,39 +46,38 @@ public class AdministradorController {
         return mv;
     }
 
-        @PostMapping("acesso-adm")
-        public ModelAndView acessoAdmLogin(@RequestParam String cpf,
-        @RequestParam String senha,
-        RedirectAttributes attributes) {
-    ModelAndView mv = new ModelAndView("redirect:/interna-adm");// página interna de acesso
-    try {
-        // boolean acessoCPF = cpf.equals(ar.findByCpf(cpf).getCpf());
-        boolean acessoCPF = admr.existsById(cpf);
-        boolean acessoSenha = senha.equals(admr.findByCpf(cpf).getSenha());
+    @PostMapping("acesso-adm")
+    public ModelAndView acessoAdmLogin(@RequestParam String cpf,
+            @RequestParam String senha,
+            RedirectAttributes attributes) {
+        ModelAndView mv = new ModelAndView("redirect:/interna-adm");// página interna de acesso
+        try {
+            // boolean acessoCPF = cpf.equals(ar.findByCpf(cpf).getCpf());
+            boolean acessoCPF = admr.existsById(cpf);
+            boolean acessoSenha = senha.equals(admr.findByCpf(cpf).getSenha());
 
-        if (acessoCPF && acessoSenha) {
-            acessoAdm = true;
-        } else {
-            String mensagem = "Erro! Credenciais inválidas";
+            if (acessoCPF && acessoSenha) {
+                acessoAdm = true;
+            } else {
+                String mensagem = "Erro! Credenciais inválidas";
+                System.out.println(mensagem);
+                attributes.addFlashAttribute("msg", mensagem);
+                attributes.addFlashAttribute("classe", "vermelho");
+                mv.setViewName("redirect:/login-adm");
+            }
+            return mv;
+
+        } catch (Exception e) {
+            String mensagem = "Erro! Credenciais inválidas ou não existem.";
             System.out.println(mensagem);
             attributes.addFlashAttribute("msg", mensagem);
             attributes.addFlashAttribute("classe", "vermelho");
             mv.setViewName("redirect:/login-adm");
+            return mv;
         }
-        return mv;
-        
-    } catch (Exception e) {
-        String mensagem = "Erro! Credenciais inválidas ou não existem.";
-        System.out.println(mensagem);
-        attributes.addFlashAttribute("msg", mensagem);
-        attributes.addFlashAttribute("classe", "vermelho");
-        mv.setViewName("redirect:/login-adm");
-        return mv;
-    }
-   
-}
 
-    
+    }
+
     @GetMapping("/interna-adm")
     public ModelAndView acessoPageInternaAdm(RedirectAttributes attributes) {
         ModelAndView mv = new ModelAndView("interna/interna-adm");
