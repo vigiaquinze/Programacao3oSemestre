@@ -10,6 +10,7 @@ public class Professor implements Serializable {
     @Id
     private String cpf;
     private String nome;
+    private String disciplina;
     private String email;
     private String senha;
     public String getCpf() {
@@ -23,6 +24,12 @@ public class Professor implements Serializable {
     }
     public void setNome(String nome) {
         this.nome = nome;
+    }
+    public String getDisciplina() {
+        return disciplina;
+    }
+    public void setDisciplina(String disciplina) {
+        this.disciplina = disciplina;
     }
     public String getEmail() {
         return email;
