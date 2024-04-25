@@ -10,8 +10,6 @@ import webapp.jpa_escola.Controller.AdministradorController;
 
 @Controller
 public class IndexController {
-    AdministradorController admc = new AdministradorController();
-    boolean acessoAdm = admc.acessoAdm;
     
     @GetMapping("/home")
     public ModelAndView acessoHomePage() {
@@ -24,13 +22,8 @@ public class IndexController {
         return mv;
     }
     @GetMapping("/login-adm")
-    public ModelAndView acessoLoginAdm(RedirectAttributes attributes) {
-        ModelAndView mv = new ModelAndView("");
-        if (acessoAdm) {
-            mv.setViewName("redirect:/home");
-        } else {
-            mv.setViewName("redirect:/login-adm");
-        }
+    public ModelAndView acessoLoginAdm() {
+        ModelAndView mv = new ModelAndView("login/login-adm");
         return mv;
     }
     @GetMapping("/cad-adm")

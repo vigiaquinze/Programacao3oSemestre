@@ -13,12 +13,13 @@ import webapp.jpa_escola.Model.Professor;
 import webapp.jpa_escola.Repository.ProfessorRepository;
 import webapp.jpa_escola.Controller.AdministradorController;
 
+@Controller
 public class ProfessorController {
     @Autowired
     private ProfessorRepository profr;
 
-    AdministradorController admc = new AdministradorController();
-    boolean acessoAdm = admc.acessoAdm;
+    @Autowired
+    private AdministradorController admc;
 
     boolean acessoProf = false;
 
@@ -27,14 +28,16 @@ public class ProfessorController {
 
         ModelAndView mv = new ModelAndView("redirect:/login-prof");
 
-        if (acessoAdm) {
+        boolean verificaCpf = profr.existsById(prof.getCpf());
+
+        if (verificaCpf == false) {
             profr.save(prof);
             String mensagem = "Cadastro realizado com sucesso";
             System.out.println(mensagem);
             attributes.addFlashAttribute("msg", mensagem);
             attributes.addFlashAttribute("classe", "verde");
         } else {
-            String mensagem = "Erro! Cadastro inválido. Verifique se o administrador está logado ou entre em contato com a secretaria.";
+            String mensagem = "Erro! CPF já cadastrado.";
             System.out.println(mensagem);
             attributes.addFlashAttribute("msg", mensagem);
             attributes.addFlashAttribute("classe", "vermelho");
