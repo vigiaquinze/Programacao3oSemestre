@@ -25,7 +25,7 @@ public class IndexController {
     }
     @GetMapping("/login-adm")
     public ModelAndView acessoLoginAdm(RedirectAttributes attributes) {
-        ModelAndView mv = new ModelAndView("interna/interna-adm");
+        ModelAndView mv = new ModelAndView("");
         if (acessoAdm) {
             mv.setViewName("redirect:/home");
         } else {
