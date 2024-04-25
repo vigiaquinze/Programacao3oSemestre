@@ -22,49 +22,29 @@
     <div th:insert="~{fragmentos/header :: header}"></div>
     <div class="container">
         <div class="form-container">
-            <h2 class="mb-4">Cadastro de Professor</h2>
-            <form action="cad-prof" method="post">
-                <div class="form-group">
-                    <label for="cpf">CPF:</label>
-                    <input placeholder="Digite o CPF do professor..." type="text" class="form-control" id="cpf"
-                        name="cpf" required>
-                </div>
+            <h2 class="mb-4">Editar dados do aluno</h2>
+            <form action="cad-aluno" method="post">
                 <div class="form-group">
                     <label for="nome">Nome:</label>
-                    <input placeholder="Digite o nome do professor..." type="text" class="form-control" id="nome"
-                        name="nome" required>
-                </div>
-                <div class="form-group">
-                    <label for="disciplina">Disciplina:</label>
-                    <input placeholder="Digite a disciplina do professor..." type="text" class="form-control"
-                        id="disciplina" name="disciplina" required>
-                </div>
-                <div class="form-group">
-                    <label for="disciplina">2ª Disciplina (opcional):</label>
-                    <input placeholder="Digite a 2ª disciplina do professor..." type="text" class="form-control"
-                        id="disciplina2" name="disciplina2">
+                    <input placeholder="Editar o nome do aluno..." type="text" class="form-control" id="nome"
+                        name="nome">
                 </div>
                 <div class="form-group">
                     <label for="email">E-mail:</label>
-                    <input placeholder="Digite o e-mail do professor..." type="text" class="form-control" id="email"
-                        name="email" required>
+                    <input placeholder="Editar o e-mail do aluno..." type="text" class="form-control" id="email"
+                        name="email">
                 </div>
                 <div class="form-group">
                     <label for="senha">Senha:</label>
-                    <input placeholder="Digite a senha do professor" type="password" class="form-control" id="senha"
-                        name="senha" required>
+                    <input placeholder="Editar a senha do aluno" type="password" class="form-control" id="senha"
+                        name="senha">
                 </div>
                 <button type="submit" class="btn btn-primary mt-4"><i class="fa-solid fa-user-plus"></i>
-                    Cadastrar</button>
-                <a href="/login-prof">
-                    <div class="btn btn-secondary mt-4"><i class="fa-solid fa-right-to-bracket"></i> Professor já
-                        cadastrado
-                    </div>
-                </a>
+                    Salvar</button>
             </form>
         </div>
         <div class="row justify-content-center">
-            <form action="logout-adm" method="post" class="col-1 justify-content-center">
+            <form action="logout-aluno" method="post" class="col-1 justify-content-center">
                 <button type="submit" class="btn btn-danger mt-4">Sair</button>
             </form>
         </div>

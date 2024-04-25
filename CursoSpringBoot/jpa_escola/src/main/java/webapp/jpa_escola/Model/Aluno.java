@@ -6,14 +6,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 @Entity
-public class Professor implements Serializable {
+public class Aluno implements Serializable{
+    //atributos
     @Id
     private String cpf;
     private String nome;
-    private String disciplina;
-    private String disciplina2;
     private String email;
+    private String telefone;
+    private String turma;
     private String senha;
+    //métodos
     public String getCpf() {
         return cpf;
     }
@@ -26,23 +28,23 @@ public class Professor implements Serializable {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    public String getDisciplina() {
-        return disciplina;
-    }
-    public void setDisciplina(String disciplina) {
-        this.disciplina = disciplina;
-    }
-    public String getDisciplina2() {
-        return disciplina2;
-    }
-    public void setDisciplina2(String disciplina2) {
-        this.disciplina2 = disciplina2;
-    }
     public String getEmail() {
         return email;
     }
     public void setEmail(String email) {
         this.email = email;
+    }
+    public String getTelefone() {
+        return telefone;
+    }
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+    public String getTurma() {
+        return turma;
+    }
+    public void setTurma(String turma) {
+        this.turma = turma;
     }
     public String getSenha() {
         return senha;

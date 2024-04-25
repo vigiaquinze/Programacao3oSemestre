@@ -9,30 +9,27 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import webapp.jpa_escola.Model.Professor;
-import webapp.jpa_escola.Repository.ProfessorRepository;
+import webapp.jpa_escola.Model.Aluno;
+import webapp.jpa_escola.Repository.AlunoRepository;
 import webapp.jpa_escola.Controller.AdministradorController;
 
 @Controller
-public class ProfessorController {
+public class AlunoController {
     @Autowired
-    private ProfessorRepository profr;
+    private AlunoRepository alunor;
 
-    @Autowired
-    private AdministradorController admc;
+    boolean acessoAluno = false;
 
-    boolean acessoProf = false;
+    @PostMapping("cad-aluno")
+    public ModelAndView cadastroalunoBD(Aluno aluno, RedirectAttributes attributes) {
 
-    @PostMapping("cad-prof")
-    public ModelAndView cadastroprofBD(Professor prof, RedirectAttributes attributes) {
+        ModelAndView mv = new ModelAndView("redirect:/login-aluno");
 
-        ModelAndView mv = new ModelAndView("redirect:/login-prof");
-
-        boolean verificaCpf = profr.existsById(prof.getCpf());
-        boolean verificaEmail = profr.existsById(prof.getEmail());
+        boolean verificaCpf = alunor.existsById(aluno.getCpf());
+        boolean verificaEmail = alunor.existsById(aluno.getEmail());
 
         if (verificaCpf == false && verificaEmail == false) {
-            profr.save(prof);
+            alunor.save(aluno);
             String mensagem = "Cadastro realizado com sucesso";
             System.out.println(mensagem);
             attributes.addFlashAttribute("msg", mensagem);
@@ -47,24 +44,26 @@ public class ProfessorController {
         return mv;
     }
 
-    @PostMapping("acesso-prof")
+    @PostMapping("acesso-aluno")
     public ModelAndView acessoAdmLogin(@RequestParam String cpf,
             @RequestParam String senha,
             RedirectAttributes attributes) {
-        ModelAndView mv = new ModelAndView("redirect:/interna-prof");// página interna de acesso
+        ModelAndView mv = new ModelAndView("redirect:/interna-aluno");// página interna de acesso
         try {
             // boolean acessoCPF = cpf.equals(ar.findByCpf(cpf).getCpf());
-            boolean acessoCPF = profr.existsById(cpf);
-            boolean acessoSenha = senha.equals(profr.findByCpf(cpf).getSenha());
+            boolean acessoCPF = alunor.existsById(cpf);
+            boolean acessoSenha = senha.equals(alunor.findByCpf(cpf).getSenha());
 
             if (acessoCPF && acessoSenha) {
-                acessoProf = true;
+                acessoAluno = true;
+                String nomeAluno = alunor.findByCpf(cpf).getNome();
+                mv.addObject(nomeAluno, attributes);
             } else {
                 String mensagem = "Erro! Credenciais inválidas";
                 System.out.println(mensagem);
                 attributes.addFlashAttribute("msg", mensagem);
                 attributes.addFlashAttribute("classe", "vermelho");
-                mv.setViewName("redirect:/login-prof");
+                mv.setViewName("redirect:/login-aluno");
             }
             return mv;
 
@@ -73,33 +72,33 @@ public class ProfessorController {
             System.out.println(mensagem);
             attributes.addFlashAttribute("msg", mensagem);
             attributes.addFlashAttribute("classe", "vermelho");
-            mv.setViewName("redirect:/login-prof");
+            mv.setViewName("redirect:/login-aluno");
             return mv;
         }
 
     }
 
-    @GetMapping("/interna-prof")
-    public ModelAndView acessoPageInternaProf(RedirectAttributes attributes) {
-        ModelAndView mv = new ModelAndView("interna/interna-prof");
-        if (acessoProf) {
+    @GetMapping("/interna-aluno")
+    public ModelAndView acessoPageInternaaluno(RedirectAttributes attributes) {
+        ModelAndView mv = new ModelAndView("interna/interna-aluno");
+        if (acessoAluno) {
             System.out.println("Acesso permitido!");
         } else {
             String mensagem = "Acesso negado. Faça login.";
             System.out.println(mensagem);
-            mv.setViewName("redirect:/login-prof");
+            mv.setViewName("redirect:/login-aluno");
             attributes.addFlashAttribute("msg", mensagem);
             attributes.addFlashAttribute("classe", "vermelho");
         }
         return mv;
     }
 
-    @PostMapping("logout-prof")
-    public ModelAndView logoutprof(RedirectAttributes attributes) {
-        ModelAndView mv = new ModelAndView("redirect:/interna-prof");
+    @PostMapping("logout-aluno")
+    public ModelAndView logoutaluno(RedirectAttributes attributes) {
+        ModelAndView mv = new ModelAndView("redirect:/interna-aluno");
         attributes.addFlashAttribute("msg", "Logout efetuado.");
         attributes.addFlashAttribute("classe", "verde");
-        acessoProf = false;
+        acessoAluno = false;
         return mv;
     }
 
