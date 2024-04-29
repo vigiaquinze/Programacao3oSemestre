@@ -19,8 +19,8 @@
 </head>
 
 <body>
-    <div th:insert="~{fragmentos/header :: header}"></div>
-    <div th:insert="~{fragmentos/header :: header-aluno}~"></div>
+    <header th:insert="~{fragmentos/header :: header}"></header>
+    <div th:include="~{fragmentos/infoaluno :: infoaluno}~"></div>
     <div class="container">
         <div class="form-container">
             <h2 class="mb-4">Editar dados do aluno</h2>

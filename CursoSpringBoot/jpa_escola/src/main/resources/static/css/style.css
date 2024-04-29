@@ -13,6 +13,7 @@ header {
     background-color: #077a4e;
     color: #fff;
     font-size: 72px;
+    display: flex;
 }
 
 nav {
