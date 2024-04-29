@@ -58,7 +58,8 @@ public class AlunoController {
                 acessoAluno = true;
                 String nomeAluno = alunor.findByCpf(cpf).getNome();
                 System.out.println(nomeAluno);
-                attributes.addFlashAttribute("nomeAluno", nomeAluno);
+                attributes.addFlashAttribute("nomedoaluno", nomeAluno);
+                mv.setViewName("redirect:/interna-aluno");
             } else {
                 String mensagem = "Erro! Credenciais inválidas";
                 System.out.println(mensagem);

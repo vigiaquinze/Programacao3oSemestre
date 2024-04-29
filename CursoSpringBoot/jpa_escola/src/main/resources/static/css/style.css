@@ -12,8 +12,13 @@ header {
 .header2 {
     background-color: #077a4e;
     color: #fff;
-    font-size: 72px;
     display: flex;
+    padding: 20px 20px;
+}
+
+.header2 span {
+    font-size: 72px;
+    font-weight: 900;
 }
 
 nav {

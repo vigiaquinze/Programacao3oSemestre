@@ -66,6 +66,10 @@ public class AdministradorController {
 
             if (acessoCPF && acessoSenha) {
                 acessoAdm = true;
+                String nomeAdm = admr.findByCpf(cpf).getNome();
+                System.out.println(nomeAdm);
+                attributes.addFlashAttribute("nomedoadm", nomeAdm);
+                mv.setViewName("redirect:/interna-adm");
             } else {
                 String mensagem = "Erro! Credenciais inválidas";
                 System.out.println(mensagem);

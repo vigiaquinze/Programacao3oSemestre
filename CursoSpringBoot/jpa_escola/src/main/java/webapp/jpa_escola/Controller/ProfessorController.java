@@ -59,6 +59,10 @@ public class ProfessorController {
 
             if (acessoCPF && acessoSenha) {
                 acessoProf = true;
+                String nomeProf = profr.findByCpf(cpf).getNome();
+                System.out.println(nomeProf);
+                attributes.addFlashAttribute("nomedoprof", nomeProf);
+                mv.setViewName("redirect:/interna-prof");
             } else {
                 String mensagem = "Erro! Credenciais inválidas";
                 System.out.println(mensagem);
