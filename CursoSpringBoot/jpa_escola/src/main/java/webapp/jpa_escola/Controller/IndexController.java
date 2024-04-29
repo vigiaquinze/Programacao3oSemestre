@@ -16,6 +16,16 @@ public class IndexController {
         ModelAndView mv = new ModelAndView("index");
         return mv;
     }
+    @GetMapping("/sobre")
+    public ModelAndView acessoSobre() {
+        ModelAndView mv = new ModelAndView("sobre");
+        return mv;
+    }
+    @GetMapping("/contato")
+    public ModelAndView acessoContato() {
+        ModelAndView mv = new ModelAndView("contato");
+        return mv;
+    }
     @GetMapping("")
     public ModelAndView acessoHomePage2() {
         ModelAndView mv = new ModelAndView("index");

@@ -30,9 +30,6 @@ public class ProfessorController {
     @Autowired
     private AdministradorController admc;
 
-    @Autowired
-    private Professor profm;
-
     boolean acessoProf = false;
 
     @PostMapping("cad-prof")

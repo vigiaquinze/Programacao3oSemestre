@@ -90,8 +90,37 @@ nav a:hover {
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
-  }
+}
 
+.tituloApresentacao {
+    margin-top: 60px;
+    margin-bottom: 60px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tituloApresentacao h5 {
+    margin-bottom: 30px;
+}
+
+.carousel-item {
+    background-color: #000;
+}
+
+.carousel-item img {
+    opacity: 50%;
+}
+
+.carousel-item h1 {
+    text-transform: uppercase;
+    font-size: 72px;
+}
 
 .btn-primary {
     --bs-btn-color: #fff;
