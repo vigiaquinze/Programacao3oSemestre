@@ -1,4 +1,8 @@
 <div th:fragment="infoaluno">
     <span>Olá, </span>
     <span th:text="${nomedoaluno}"></span>
+    <div class="infoSecundaria">
+        <h5 class="bold">Turma:</h5>
+        <h5 th:text="${turmadoaluno}"></h5>
+    </div>
 </div>

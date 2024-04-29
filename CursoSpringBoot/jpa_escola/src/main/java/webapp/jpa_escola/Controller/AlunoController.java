@@ -1,7 +1,10 @@
 package webapp.jpa_escola.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,8 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import webapp.jpa_escola.Model.Aluno;
+import webapp.jpa_escola.Model.Professor;
 import webapp.jpa_escola.Repository.AlunoRepository;
-import webapp.jpa_escola.Controller.AdministradorController;
 
 @Controller
 public class AlunoController {
@@ -21,7 +24,7 @@ public class AlunoController {
     boolean acessoAluno = false;
 
     @PostMapping("cad-aluno")
-    public ModelAndView cadastroalunoBD(Aluno aluno, RedirectAttributes attributes) {
+    public ModelAndView cadastroAlunoBD(Aluno aluno, RedirectAttributes attributes) {
 
         ModelAndView mv = new ModelAndView("redirect:/login-aluno");
 
@@ -57,8 +60,11 @@ public class AlunoController {
             if (acessoCPF && acessoSenha) {
                 acessoAluno = true;
                 String nomeAluno = alunor.findByCpf(cpf).getNome();
+                String turmaAluno = alunor.findByCpf(cpf).getTurma();
                 System.out.println(nomeAluno);
+                System.out.println(turmaAluno);
                 attributes.addFlashAttribute("nomedoaluno", nomeAluno);
+                attributes.addFlashAttribute("turmadoaluno", turmaAluno);
                 mv.setViewName("redirect:/interna-aluno");
             } else {
                 String mensagem = "Erro! Credenciais inválidas";
@@ -81,7 +87,7 @@ public class AlunoController {
     }
 
     @GetMapping("/interna-aluno")
-    public ModelAndView acessoPageInternaaluno(RedirectAttributes attributes) {
+    public ModelAndView acessoPageInternaAluno(RedirectAttributes attributes) {
         ModelAndView mv = new ModelAndView("interna/interna-aluno");
         if (acessoAluno) {
             System.out.println("Acesso permitido!");
@@ -96,7 +102,7 @@ public class AlunoController {
     }
 
     @PostMapping("logout-aluno")
-    public ModelAndView logoutaluno(RedirectAttributes attributes) {
+    public ModelAndView logoutAluno(RedirectAttributes attributes) {
         ModelAndView mv = new ModelAndView("redirect:/interna-aluno");
         attributes.addFlashAttribute("msg", "Logout efetuado.");
         attributes.addFlashAttribute("classe", "verde");

@@ -1,14 +1,23 @@
 package webapp.jpa_escola.Controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import jakarta.annotation.PostConstruct;
 import webapp.jpa_escola.Model.Professor;
 import webapp.jpa_escola.Repository.ProfessorRepository;
 import webapp.jpa_escola.Controller.AdministradorController;
@@ -20,6 +29,9 @@ public class ProfessorController {
 
     @Autowired
     private AdministradorController admc;
+
+    @Autowired
+    private Professor profm;
 
     boolean acessoProf = false;
 
@@ -60,8 +72,14 @@ public class ProfessorController {
             if (acessoCPF && acessoSenha) {
                 acessoProf = true;
                 String nomeProf = profr.findByCpf(cpf).getNome();
+                String materiaProf = profr.findByCpf(cpf).getDisciplina();
+                String materia2Prof = profr.findByCpf(cpf).getDisciplina2();
                 System.out.println(nomeProf);
+                System.out.println(materiaProf);
+                System.out.println(materia2Prof);
                 attributes.addFlashAttribute("nomedoprof", nomeProf);
+                attributes.addFlashAttribute("materiadoprof", materiaProf);
+                attributes.addFlashAttribute("materia2doprof", materia2Prof);
                 mv.setViewName("redirect:/interna-prof");
             } else {
                 String mensagem = "Erro! Credenciais inválidas";

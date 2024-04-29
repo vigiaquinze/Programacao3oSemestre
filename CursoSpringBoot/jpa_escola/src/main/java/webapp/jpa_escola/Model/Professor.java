@@ -1,6 +1,9 @@
 package webapp.jpa_escola.Model;
 
 import java.io.Serializable;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -50,5 +53,4 @@ public class Professor implements Serializable {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-    
 }
