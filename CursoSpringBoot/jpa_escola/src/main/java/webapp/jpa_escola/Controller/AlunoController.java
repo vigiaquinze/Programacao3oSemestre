@@ -57,7 +57,7 @@ public class AlunoController {
             if (acessoCPF && acessoSenha) {
                 acessoAluno = true;
                 String nomeAluno = alunor.findByCpf(cpf).getNome();
-                mv.addObject(nomeAluno, "Nome");
+                attributes.addFlashAttribute("nomeAluno", nomeAluno);
             } else {
                 String mensagem = "Erro! Credenciais inválidas";
                 System.out.println(mensagem);
