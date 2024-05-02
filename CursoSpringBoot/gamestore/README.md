@@ -9,4 +9,4 @@
     - Rotas de navegação
 - Template
     - gameadd.html
-    - gamelist.html
+    - gamelist.html# deploy_springboot_gamestore

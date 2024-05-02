@@ -30,6 +30,7 @@ nav ul li a{
 table, thead, tbody, tr{
     border: 1px solid #2a2b2c;
     padding: 4px;
+    border-collapse: collapse;
 }
 
 td, th {
