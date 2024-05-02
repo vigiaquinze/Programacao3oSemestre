@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game List</title>
+    <link rel="stylesheet" th:href="@{../css/style.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@300..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li>
+                    <a th:href="@{/home}">Home</a>
+                </li>
+                <li>
+                    <a th:href="@{/list}">Lista de Jogos</a>
+                </li>
+                <li>
+                    <a th:href="@{/addgame}">Adicionar Jogo</a>
+                </li>
+                <li>
+                    <a th:href="@{/contact}">Contato</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+        <form action="" method="post">
+            <h1>Add Game</h1>
+            <label for="nome">Nome</label>
+            <input type="text" name="nome" id="nome">
+            <label for="descricao">Descrição</label>
+            <input type="text" name="descricao" id="descricao">
+            <label for="desenvolvedora">Desenvolvedora</label>
+            <input type="text" name="desenvolvedora" id="desenvolvedora">
+            <label for="preco">Preço</label>
+            <input type="text" name="preco" id="preco">
+            <input type="submit" value="Adicionar">
+        </form>
+    </div>
+</body>
+
+</html>
