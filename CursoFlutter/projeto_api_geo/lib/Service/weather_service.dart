@@ -24,7 +24,7 @@ class WeatherService {
   }
 
   Future<Map<String, dynamic>> getWeatherByLocation(double lat, double lon) async {
-    final url = Uri.parse('$baseUrl?lat=$lat&$lon&appid=$apiKey');
+    final url = Uri.parse('$baseUrl?lat=$lat&lon=$lon&appid=$apiKey');
 
     // Faz uma solicitação GET para a URL construída e aguarda a resposta.
     final response = await http.get(url);

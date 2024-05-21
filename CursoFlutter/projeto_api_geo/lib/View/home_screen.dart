@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:projeto_api_geo/Controller/weather_controller.dart';
+import 'package:projeto_api_geo/Model/weather_model.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -11,12 +12,12 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final WeatherController _controller = new WeatherController();
+    //get
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-
     // geolocator
     _getWeather();
   }
@@ -25,7 +26,10 @@ class _HomeScreenState extends State<HomeScreen> {
     try {
       Position _position = await Geolocator.getCurrentPosition();
       print(_position.latitude);
+      print(_position.longitude);
       _controller.getWeatherByLocation(_position.latitude, _position.longitude);
+      setState(() {
+      });
     } catch (e) {
       print(e);
     }
