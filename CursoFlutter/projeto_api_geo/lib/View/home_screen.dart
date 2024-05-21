@@ -52,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   ElevatedButton(onPressed: (){}, child: const Text("Favorites")),
                   SizedBox(width: 20),
-                  ElevatedButton(onPressed: (){}, child: const Text("Search"))
+                  ElevatedButton(onPressed: (){Navigator.pushNamed(context ,'/search');}, child: const Text("Search"))
                 ],
               ),
               const SizedBox(height: 20),
