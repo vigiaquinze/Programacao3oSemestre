@@ -1,0 +1,22 @@
+{
+  "usuarios": [
+    {
+      "id": "1",
+      "nome": "Ilha do Medo",
+      "descricao": "Nos anos 1950, a fuga de uma assassina leva o detetive Teddy Daniels e seu parceiro a investigarem o seu desaparecimento de um quarto trancado em um hospital psiquiátrico. Lá, uma rebelião se inicia e o agente terá que enfrentar seus próprios medos."
+    },
+    {
+      "id": "2",
+      "nome": "Mulholland Drive",
+      "descricao": "Uma jovem atriz viaja para Hollywood e se vê emaranhada numa intriga secreta com uma mulher que escapou por pouco de ser assassinada, e que agora se encontra com amnésia devido a um acidente de carro. Seu mundo se torna um pesadelo e surreal."
+    },
+    {
+      "id": "3",
+      "nome": "Os 12 Macacos",
+      "descricao": "Um condenado do ano de 2035 é enviado de volta no tempo para descobrir a causa de um vírus que acabou com quase toda a população do planeta. Os poucos sobreviventes moram em abrigos subterrâneos."
+    },
+    {
+      "id": "c2ac"
+    }
+  ]
+}
