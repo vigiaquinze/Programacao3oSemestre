@@ -2,9 +2,9 @@ class Weather {
   final String name;
   final String description;
   final String main;
-  final double temp;
-  final double tempMax;
-  final double tempMin;
+  final num temp;
+  final num tempMax;
+  final num tempMin;
 
   //construtor
   Weather({required this.name, required this.description, required this.main, required this.temp, required this.tempMax, required this.tempMin});
