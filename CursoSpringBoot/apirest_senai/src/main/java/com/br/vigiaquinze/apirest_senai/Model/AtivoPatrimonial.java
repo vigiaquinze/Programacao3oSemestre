@@ -4,6 +4,9 @@ import java.io.Serializable;
 import jakarta.persistence.*;
 import lombok.*;
 
+@Entity
+@Getter
+@Setter
 public class AtivoPatrimonial implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

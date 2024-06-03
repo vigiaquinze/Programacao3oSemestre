@@ -6,8 +6,9 @@ import java.util.List;
 import jakarta.persistence.*;
 import lombok.*;
 
-@AllArgsConstructor
-@NoArgsConstructor
+@Entity
+@Setter
+@Getter
 public class Ambiente implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,10 +17,8 @@ public class Ambiente implements Serializable{
     @NonNull
     private String nome;
 
-    @OneToMany(mappedBy = "ambiente")
-    private List<AtivoPatrimonial> ativo;
-
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "responsavel_id", nullable = false)
     private Responsavel responsavel;
+
 }

@@ -2,17 +2,16 @@ package com.br.vigiaquinze.apirest_senai.Model;
 
 import java.io.Serializable;
 
-import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
+import lombok.*;
 
+@Entity
+@Getter
+@Setter
 public class Responsavel implements Serializable{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Nonnull
     private String nome;
 
-    @OneToOne(mappedBy = "responsavel")
-    private Ambiente ambiente;
 }
