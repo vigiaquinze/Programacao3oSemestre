@@ -17,10 +17,9 @@ class Produto {
   //FROM JSON
   factory Produto.fromJson(Map<String, dynamic> json) {
     return Produto(
-      id: json['id'],
-      nome: json['nome'],
-      preco: json['preco'],
+      id: json['id'] is int ? json['id'] :int.parse(json['id']),
+      nome: (json['nome']).toString(),
+      preco: json['preco'] is double ? json['preco'] : double.parse(json['preco']),
     );
   }
-
 }
