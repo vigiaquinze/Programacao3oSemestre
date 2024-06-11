@@ -25,5 +25,17 @@
             "nome": "Produto 5",
             "preco": 50.00
         }
+    ],
+    "music":[
+        {
+            "title": "What I've Done",
+            "artist": "Linkin Park",
+            "url": "https://drive.google.com/file/d/1si2p_iShoQeISEIVVYFQVm85aA3WFkQ8/preview"
+        },
+        {
+            "title": "Feel Good Inc.",
+            "artist": "Gorillaz",
+            "url": "https://drive.google.com/file/d/1SPtqnVFhKZoT-5IApNNsyAdijwmAtpqv/preview"
+        }
     ]
 }
