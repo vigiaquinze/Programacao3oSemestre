@@ -11,7 +11,7 @@ class MusicPlayerScreen extends StatefulWidget {
 }
 
 class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
-  late AudioPlayer _audio = AudioPlayer();
+  late AudioPlayer _audio;
   bool _isPlaying = false;
 
   @override
@@ -19,23 +19,22 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
     super.initState();
     _audio = AudioPlayer();
   }
-  @override
-  void setState(VoidCallback fn) {
-    super.setState(fn);
-    _isPlaying = !_isPlaying;
-  }
   
   @override
   void dispose() {
     _audio.dispose();
     super.dispose();
   }
+  
   void _playPause() {
     if (_isPlaying) {
       _audio.pause();
     } else {
       _audio.play(UrlSource(widget.music.url));
     }
+    setState(() {
+      _isPlaying = !_isPlaying;
+    });
   }
  
   @override
