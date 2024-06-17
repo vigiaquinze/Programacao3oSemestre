@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "138041174576",
+    "project_id": "teste-firebase-tardeb-diogo",
+    "storage_bucket": "teste-firebase-tardeb-diogo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:138041174576:android:83705a923be9d11c141bf5",
+        "android_client_info": {
+          "package_name": "br.com.diogotb"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrHPU48AyoVWaUI4xyM9bs1DlAoMZY3vw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
