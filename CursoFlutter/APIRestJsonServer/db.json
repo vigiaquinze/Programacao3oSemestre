@@ -25,5 +25,12 @@
             "nome": "Produto 5",
             "preco": 50.00
         }
+    ],
+    "music":[
+        {
+            "title": "Helena",
+            "artist": "My Chemical Romance",
+            "url": "https://audio.jukehost.co.uk/XfmnUUkHC7c7AMStvIyNbgT7Takl3GgM"
+        }
     ]
 }

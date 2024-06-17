@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_apirest/controller/produtos_controller.dart';
+import 'package:projeto_apirest/controllers/produtos_controller.dart';
 
 import '../models/produto.dart';
 
