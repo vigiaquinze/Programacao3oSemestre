@@ -79,11 +79,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         Text(_controller.weatherList.last.main),
                         Text(_controller.weatherList.last.description),
                         Text((_controller.weatherList.last.temp - 273)
-                            .toString()),
+                            .toStringAsFixed(2)),
                         Text((_controller.weatherList.last.tempMax - 273)
-                            .toString()),
+                            .toStringAsFixed(2)),
                         Text((_controller.weatherList.last.tempMin - 273)
-                            .toString()),
+                            .toStringAsFixed(2)),
                         IconButton(
                           icon: const Icon(Icons.refresh),
                           onPressed: () {
