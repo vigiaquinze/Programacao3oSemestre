@@ -3,7 +3,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:projeto_api_geo/Controller/weather_controller.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -14,15 +14,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    _getWeather();
     super.initState();
+    _getWeather();
   }
 
   Future<void> _getWeather() async {
     try {
       Position _position = await Geolocator.getCurrentPosition();
-      print(_position.latitude);
       _controller.getWeatherbyLocation(_position.latitude, _position.longitude);
       setState(() {});
     } catch (e) {
@@ -39,63 +37,111 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Padding(
         padding: EdgeInsets.all(12),
         child: Center(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
                     onPressed: () {
                       Navigator.pushNamed(context, '/favorites');
                     },
-                    child: const Text("Favorites")),
-                const SizedBox(width: 20),
-                ElevatedButton(
+                    child: const Text("Favorites"),
+                  ),
+                  SizedBox(width: 20),
+                  ElevatedButton(
                     onPressed: () {
                       Navigator.pushNamed(context, '/search');
                     },
-                    child: const Text("Localization"))
-              ],
-            ),
-            const SizedBox(height: 20),
-            //construir a exibição do clima(geolocalização)
-            Builder(
+                    child: const Text("Localization"),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
+              Builder(
                 builder: (context) {
                   if (_controller.weatherList.isEmpty) {
-                    return Column(children: [
-                      const Text("Localização Não Encontrada"),
-                      IconButton(
-                        icon: const Icon(Icons.refresh),
-                        onPressed: () {
-                          _getWeather();
-                        },
-                      )
-                    ]);
-                  } else {
                     return Column(
                       children: [
-                        Text(_controller.weatherList.last.name),
-                        Text(_controller.weatherList.last.main),
-                        Text(_controller.weatherList.last.description),
-                        Text((_controller.weatherList.last.temp - 273)
-                            .toStringAsFixed(2)),
-                        Text((_controller.weatherList.last.tempMax - 273)
-                            .toStringAsFixed(2)),
-                        Text((_controller.weatherList.last.tempMin - 273)
-                            .toStringAsFixed(2)),
+                        Text("Localização Não Encontrada"),
                         IconButton(
-                          icon: const Icon(Icons.refresh),
+                          icon: Icon(Icons.refresh),
                           onPressed: () {
                             _getWeather();
                           },
-                        )
+                        ),
+                      ],
+                    );
+                  } else {
+                    var weather = _controller.weatherList.last;
+                    return Column(
+                      children: [
+                        Text(
+                          weather.name,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24, // Exemplo de tamanho de fonte maior
+                          ),
+                        ),
+                        Text(weather.main),
+                        Text(weather.description),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Temperature:",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(width: 5),
+                            Text(
+                              (weather.temp - 273.15).toStringAsFixed(2),
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Max:",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(width: 5),
+                            Text(
+                              (weather.tempMax - 273.15).toStringAsFixed(2),
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Min:",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(width: 5),
+                            Text(
+                              (weather.tempMin - 273.15).toStringAsFixed(2),
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.refresh),
+                          onPressed: () {
+                            _getWeather();
+                          },
+                        ),
                       ],
                     );
                   }
-                })
-          ],
-        )),
+                },
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

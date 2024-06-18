@@ -6,7 +6,7 @@ import 'package:projeto_api_geo/View/detailsweather_screen.dart';
 import '../Model/city_model.dart';
 
 class SearchScreen extends StatefulWidget {
-  const SearchScreen({super.key});
+  const SearchScreen({Key? key}) : super(key: key);
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();
@@ -15,7 +15,7 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _cityController = TextEditingController();
-  final WeatherController _controller = WeatherController();
+  final WeatherController _weatherController = WeatherController();
   final CityDbController _dbController = CityDbController();
 
   @override
@@ -23,75 +23,84 @@ class _SearchScreenState extends State<SearchScreen> {
     return Scaffold(
       appBar: AppBar(title: Text("Search")),
       body: Padding(
-        padding: EdgeInsets.all(12),
+        padding: const EdgeInsets.all(12),
         child: Center(
           child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  TextFormField(
-                      controller: _cityController,
-                      decoration:
-                          InputDecoration(hintText: "Enter the city name"),
-                      validator: (value) {
-                        if (value!.trim().isEmpty) {
-                          return "Please enter a city";
-                        }
-                        return null;
-                      }),
-                  ElevatedButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          _cityFind(_cityController.text);
-                        }
-                      },
-                      child: const Text("Search")),
-                      const SizedBox(height: 12,),
-                      FutureBuilder(
-                        future: _dbController.listCities(), 
-                        builder: (context,snapshot){
-                          if(_dbController.cities().isNotEmpty){
-                            return ListView.builder(
-                                itemCount: _dbController.cities().length,
-                                itemBuilder: (context, index) {
-                                  return ListTile(
-                                    title: Text(_dbController.cities()[index].cityName),
-                                    onTap: () {
-                                      //
-                                    },
-                                  );
-                                });
-                          }
-                          return const Center(child: Text("Empty Location"));
-                        })
-
-                ],
-              )),
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                TextFormField(
+                  controller: _cityController,
+                  decoration: InputDecoration(hintText: "Enter the city name"),
+                  validator: (value) {
+                    if (value!.trim().isEmpty) {
+                      return "Please enter a city";
+                    }
+                    return null;
+                  },
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      _findCity(_cityController.text);
+                    }
+                  },
+                  child: const Text("Search"),
+                ),
+                const SizedBox(height: 12),
+                Expanded(
+                  child: FutureBuilder<List<City>>(
+                    future: _dbController.listCities(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(child: CircularProgressIndicator());
+                      } else if (snapshot.hasError) {
+                        return Center(child: Text("Error: ${snapshot.error}"));
+                      } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                        return Center(child: Text("Empty Location"));
+                      } else {
+                        return ListView.builder(
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                              title: Text(snapshot.data![index].cityName),
+                              onTap: () {
+                                _navigateToDetails(snapshot.data![index].cityName);
+                              },
+                            );
+                          },
+                        );
+                      }
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
   }
 
-  Future<void> _cityFind(String city) async {
-    if (await _controller.findCity(city)) {
-      //snackbar
-       City cityadd = City(cityName:city,favoritesCities:false);
-      _dbController.addCity(cityadd);
+  Future<void> _findCity(String cityName) async {
+    bool cityFound = await _weatherController.findCity(cityName);
+    
+    if (cityFound) {
+      City cityToAdd = City(cityName: cityName, favoritesCities: false);
+      await _dbController.addCity(cityToAdd);
+      
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text("City found"),
           duration: Duration(seconds: 1),
         ),
       );
-      //navigation to details
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => WeatherDetailsScreen(cityName: city)));
-      setState(() {});
-    }else{
-      // snackbar
+      
+      setState(() {
+        // Refresh the list after adding the city
+      });
+    } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text("City not found"),
@@ -100,5 +109,14 @@ class _SearchScreenState extends State<SearchScreen> {
       );
       _cityController.clear();
     }
+  }
+
+  void _navigateToDetails(String cityName) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => WeatherDetailsScreen(cityName: cityName),
+      ),
+    );
   }
 }

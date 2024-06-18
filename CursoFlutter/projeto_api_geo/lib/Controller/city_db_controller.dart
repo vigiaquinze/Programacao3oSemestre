@@ -1,34 +1,42 @@
-import 'package:projeto_api_geo/Service/city_database_service.dart';
-
+import '../Service/city_database_service.dart';
 import '../Model/city_model.dart';
 
 class CityDbController {
-  //atributos
   List<City> _cities = [];
   final CityDbService _service = CityDbService();
-  //get cities
+
   List<City> cities() => _cities;
 
-  //métodos
-  //list from db
   Future<List<City>> listCities() async {
     List<Map<String, dynamic>> maps = await _service.listCity();
-    // for(Map<String,dynamic> map in maps){
-    //     _cities.add(City.fromMap(map));
-    //   }
     _cities = maps.map<City>((e) => City.fromMap(e)).toList();
     return _cities;
   }
-  //add city
+
   Future<void> addCity(City city) async {
     await _service.insertCity(city);
+    _cities.add(city); // Adiciona à lista local também
   }
-  //update city
+
   Future<void> updateCity(City city) async {
     await _service.updateCity(city);
+
+    // Atualiza na lista local
+    int index =
+        _cities.indexWhere((element) => element.cityName == city.cityName);
+    if (index != -1) {
+      _cities[index] = city;
+    }
   }
-  //delete city
+
   Future<void> deleteCity(String city) async {
     await _service.deleteCity(city);
+    _cities.removeWhere((element) => element.cityName == city);
+  }
+
+  Future<bool> isCityFavorite(String cityName) async {
+    List<City> cities = await listCities();
+    return cities
+        .any((city) => city.cityName == cityName && city.favoritesCities);
   }
 }
