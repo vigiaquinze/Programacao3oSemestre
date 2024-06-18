@@ -30,3 +30,7 @@ tasks.register("customClean", Delete) {
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
+
+android {
+    compileSdkVersion 31
+}
